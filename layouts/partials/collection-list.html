@@ -1,0 +1,45 @@
+<div class="container-fluid content-container">
+<div class="row postsRow">
+
+<div class="col-lg-6 postCol">
+
+
+{{ $collection := .Scratch.Get "CollectionToDisplay" }}
+
+{{ $listEntriesCount := (float (.Scratch.Get "ListEntriesCount" | default (len   $collection))) }}
+
+{{ range $index, $page := $collection }}
+
+
+<article class="post post-entry" style="border-left-color: {{ (.Params.accent_color | default `#ff5600`) }};">
+  <header class="post-header">
+    
+	<span class="welcome-emoji">{{ safeHTML (.Params.list_header_emoji) }}</span>
+    <h2 class="post-title">{{ .Title }}</h2>
+  </header>
+  {{ if .Params.summary }}
+	<p class="post-summary">{{ .Params.summary }}...</p>
+  {{ else }}
+   <p class="post-summary">{{ .Summary | plainify | htmlUnescape }}...</p>
+  {{ end }}
+  <footer class="post-footer relative-wrap">
+    <span class="post-meta">{{ .Date.Format "2. 1. 2006 @ 3.04" }}</span>
+	{{ if .Params.reading_time }}
+	<span class="post-meta right-absolute-align">⏱ {{.Params.reading_time}} mins</span> 
+	{{ end }}
+  </footer>
+  <a class="post-link" href="{{ .Permalink }}"></a>
+</article>
+
+{{ if ge (div (add $index 1) (len $collection) ) 0.5 }} <!--  $listEntriesCount -->
+	</div>
+	<div class="col-lg-6 postCol">
+{{ end }}
+
+
+{{ end }}
+</div>
+</div>
+<div class="">&nbsp;</div>
+
+</div> <!-- CONTAINER -->

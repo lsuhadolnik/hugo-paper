@@ -1,0 +1,26 @@
+{{ $listEntriesCount := (float (.Scratch.Get "ListEntriesCount" | default 4.0)) }}
+{{ $paginator := .Paginate (where .Pages ".Params.type" "!=" "page") (index .Site.Params "paginate" | default $listEntriesCount) }}
+{{ if gt $paginator.TotalPages 0 }}
+
+{{ .Scratch.Set "CollectionToDisplay" $paginator.Pages}}
+{{ partial "collection-list.html" . }}
+
+{{ end }}
+
+{{ $showPagingNavigation := (.Scratch.Get "ShowPagingNavigation" | default true) }}
+{{ if $showPagingNavigation }}
+
+{{ if gt $paginator.TotalPages 1 }}
+<footer class="list-footer">
+  <nav class="pagination">
+    {{ if $paginator.HasPrev }}
+    <a class="pagination-prev" href="{{ $paginator.Prev.URL }}">⬅ Prev Pagee</a>
+    {{ end }}
+    {{ if $paginator.HasNext }}
+    <a class="pagination-next" href="{{ $paginator.Next.URL }}">Next Page ➡</a>
+    {{ end }}
+  </nav>
+</footer>
+{{ end }}
+
+{{ end }}

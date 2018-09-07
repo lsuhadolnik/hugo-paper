@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+
+<div class="pattern hero hero-centered-content">  
+		
+		<div class="title-wrap ">
+			  
+			<div class="firstLine">Lovro Suhadolnik</div>
+			<div class="secondLine">This is his blog.</div>
+		</div>
+	
+</div>
+<div class="">
+<div class="latest-posts-sign">Latest posts</div>
+</div>
+
+<main>
+
+<!--<h1 class="list-title homepage-heading-title"><span class="inline-emoji" style="padding-right:15px;">👉</span>Latest posts</h1>-->
+
+{{ .Scratch.Set "ListEntriesCount" 2.0 }}
+{{ partial "posts-list.html" . }}
+
+
+</main>
+
+{{ partial "footer.html" . }}
